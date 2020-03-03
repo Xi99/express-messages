@@ -6,6 +6,10 @@ app.use((req, res, next) => {
   res.status(404).send("That route does not exist");
 });
 
+app.get("/api/messages", (res, req) => {
+  pool.gelAllMessages().then(results => res.send(results));
+});
+
 const port = 3000;
 
 app.listen(port, () => {
