@@ -4,10 +4,14 @@ const pool = new Pool({
 });
 
 const sendMessage = message => {
-  let values = [message_name, message_text];
+  const values = [message.message_name, message.message_text];
+
   return pool
-    .query("INSERT INTO messages VALUES ($1, $2)", values)
-    .then(res => console.log("message: ", res.rows));
+    .query(
+      "INSERT INTO messages (message_name, message_text) VALUES ($1, $2)",
+      values
+    )
+    .then(() => true);
 };
 
 const getAllMessages = () => {
