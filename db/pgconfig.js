@@ -18,13 +18,22 @@ const getAllMessages = () => {
   return pool.query("SELECT * FROM messages").then(res => res.rows);
 };
 
+const updateMessage = (message, message_id) => {
+  // console.log(message.message_name);
+  // console.log(message.message_text);
+  // console.log(message_id);
+  const values = [message.message_name, message.message_text, message_id];
+  return pool
+    .query(
+      "UPDATE messages SET message_name = $1, message_text = $2 WHERE message_id = $3",
+      values
+    )
+    .then(() => true);
+};
+
 module.exports = {
   pool,
   getAllMessages,
-  sendMessage
+  sendMessage,
+  updateMessage
 };
-// CREATE TABLE messages (
-//   message_id SERIAL,
-//   message_name TEXT,
-//   message_text TEXT
-// );

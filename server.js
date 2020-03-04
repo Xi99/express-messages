@@ -15,6 +15,13 @@ app.post("/api/messages", (req, res) => {
   pool.sendMessage(req.body).then(() => res.sendStatus(201));
 });
 
+app.put("/api/messages/:message_id", (req, res) => {
+  // console.log(req.params.message_id);
+  pool
+    .updateMessage(req.body, req.params.message_id)
+    .then(() => res.sendStatus(201));
+});
+
 app.use((req, res, next) => {
   res.status(404).send("That route does not exist");
 });
