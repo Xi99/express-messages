@@ -22,6 +22,10 @@ app.put("/api/messages/:message_id", (req, res) => {
     .then(() => res.sendStatus(201));
 });
 
+app.delete("/api/messages/:message_id", (req, res) => {
+  pool.deleteMessage(req.params.message_id).then(() => res.sendStatus(200));
+});
+
 app.use((req, res, next) => {
   res.status(404).send("That route does not exist");
 });

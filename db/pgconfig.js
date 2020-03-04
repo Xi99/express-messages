@@ -19,9 +19,6 @@ const getAllMessages = () => {
 };
 
 const updateMessage = (message, message_id) => {
-  // console.log(message.message_name);
-  // console.log(message.message_text);
-  // console.log(message_id);
   const values = [message.message_name, message.message_text, message_id];
   return pool
     .query(
@@ -31,9 +28,17 @@ const updateMessage = (message, message_id) => {
     .then(() => true);
 };
 
+const deleteMessage = message_id => {
+  const values = [message_id];
+  return pool
+    .query("DELETE FROM messages WHERE message_id = $1", values)
+    .then(() => true);
+};
+
 module.exports = {
   pool,
   getAllMessages,
   sendMessage,
-  updateMessage
+  updateMessage,
+  deleteMessage
 };
